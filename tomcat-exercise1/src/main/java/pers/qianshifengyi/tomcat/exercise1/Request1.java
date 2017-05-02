@@ -1,9 +1,11 @@
 package pers.qianshifengyi.tomcat.exercise1;
 
+import pers.qianshifengyi.tomcat.util.FileUtil;
+
 import java.io.InputStream;
 
 /**
- * Created by zhangshan193 on 17/4/28.
+ * Created by zhangshan on 17/4/28.
  */
 public class Request1 {
 
@@ -15,6 +17,12 @@ public class Request1 {
     }
 
     public void parse(){
+        String content = FileUtil.getContentFromIS(is);
+        System.out.println("content:"+content);
+        String[] contentArr = content.split(" ");
+        if(contentArr != null && contentArr.length > 1) {
+            uri = contentArr[1];
+        }
 
     }
 
