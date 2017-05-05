@@ -5,6 +5,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.Locale;
 
@@ -13,9 +14,13 @@ import java.util.Locale;
  */
 public class HttpResponse implements HttpServletResponse {
 
-    private ServletOutputStream sos;
+    private OutputStream os;
 
     private HttpServletRequest request;
+
+    public HttpResponse(OutputStream os){
+        this.os = os;
+    }
 
     public void setRequest(HttpServletRequest request){
         this.request = request;
@@ -118,6 +123,7 @@ public class HttpResponse implements HttpServletResponse {
 
     @Override
     public ServletOutputStream getOutputStream() throws IOException {
+
         return null;
     }
 
