@@ -8,7 +8,7 @@ import java.net.Socket;
 /**
  * Created by zhangshan on 17/5/4.
  */
-public class HttpConnector implements Runnable{
+public class HttpConnector3 implements Runnable{
 
     private boolean stop = false;
 
@@ -24,8 +24,8 @@ public class HttpConnector implements Runnable{
             ServerSocket serverSocket = new ServerSocket(8081,1, InetAddress.getByName("1270.0.1"));
             while(!stop){
                 Socket socket = serverSocket.accept();
-                HttpProcessor httpProcessor = new HttpProcessor(socket);
-                httpProcessor.process();
+                HttpProcessor3 httpProcessor3 = new HttpProcessor3(socket);
+                httpProcessor3.process();
             }
 
         } catch (IOException e) {

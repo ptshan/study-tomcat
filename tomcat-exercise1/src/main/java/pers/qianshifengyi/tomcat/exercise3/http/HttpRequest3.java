@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.security.Principal;
 import java.util.Enumeration;
@@ -16,7 +17,16 @@ import java.util.Map;
 /**
  * Created by zhangshan on 17/5/4.
  */
-public class HttpRequest implements HttpServletRequest {
+public class HttpRequest3 implements HttpServletRequest {
+
+    private InputStream is;
+
+    public HttpRequest3(InputStream is){
+        this.is = is;
+    }
+
+
+
     @Override
     public String getAuthType() {
         return null;

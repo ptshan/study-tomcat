@@ -12,13 +12,15 @@ import java.util.Locale;
 /**
  * Created by zhangshan on 17/5/4.
  */
-public class HttpResponse implements HttpServletResponse {
+public class HttpResponse3 implements HttpServletResponse {
 
     private OutputStream os;
 
     private HttpServletRequest request;
 
-    public HttpResponse(OutputStream os){
+    private PrintWriter pw;
+
+    public HttpResponse3(OutputStream os){
         this.os = os;
     }
 
@@ -129,6 +131,7 @@ public class HttpResponse implements HttpServletResponse {
 
     @Override
     public PrintWriter getWriter() throws IOException {
+        pw = new PrintWriter(os,true);
         return null;
     }
 
