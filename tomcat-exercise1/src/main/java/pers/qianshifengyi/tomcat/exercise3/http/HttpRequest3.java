@@ -22,6 +22,10 @@ public class HttpRequest3 implements HttpServletRequest {
     private String contentType;
     private int contentLength;
 
+    private String method;
+    private String protocol;
+    private String requestURI;
+
     private List<Cookie> cookies = new ArrayList<Cookie>();
 
     private Map<String,ArrayList<String>> headers = new HashMap<String,ArrayList<String>>();
@@ -78,6 +82,18 @@ public class HttpRequest3 implements HttpServletRequest {
 
     public void setContentLength(int contentLength) {
         this.contentLength = contentLength;
+    }
+
+    public void setMethod(String method) {
+        this.method = method;
+    }
+
+    public void setProtocol(String protocol) {
+        this.protocol = protocol;
+    }
+
+    public void setRequestURI(String requestURI) {
+        this.requestURI = requestURI;
     }
 
     @Override
