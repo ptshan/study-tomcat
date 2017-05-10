@@ -154,6 +154,8 @@ public class SocketInputStream extends InputStream {
 
         while (!space) {
             // if the buffer is full, extend it
+            // 如果读取的字节数readCount大于等于maxRead,且maxRead*2 小于等于MAX_METHOD_SIZE
+            // 则新建数组(大小为maxRead*2) 并将 其赋值给method,并将method.length赋值给maxRead
             if (readCount >= maxRead) {
                 if ((2 * maxRead) <= HttpRequestLine.MAX_METHOD_SIZE) {
                     char[] newBuffer = new char[2 * maxRead];
@@ -176,14 +178,16 @@ public class SocketInputStream extends InputStream {
                 pos = 0;
                 readStart = 0;
             }
+            // 若为空格则space=true
             if (buf[pos] == SP) {
                 space = true;
             }
+            // 一个字节一个字节复制,复制完readCount自增,pos自增
             requestLine.method[readCount] = (char) buf[pos];
             readCount++;
             pos++;
         }
-
+        // 因为readCount为空格,所以减掉1,methodEnd为method的字节数
         requestLine.methodEnd = readCount - 1;
 
         // Reading URI

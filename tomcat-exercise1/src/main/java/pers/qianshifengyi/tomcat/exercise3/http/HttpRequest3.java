@@ -10,9 +10,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.security.Principal;
-import java.util.Enumeration;
-import java.util.Locale;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by zhangshan on 17/5/4.
@@ -21,11 +19,66 @@ public class HttpRequest3 implements HttpServletRequest {
 
     private InputStream is;
 
+    private String contentType;
+    private int contentLength;
+
+    private List<Cookie> cookies = new ArrayList<Cookie>();
+
+    private Map<String,ArrayList<String>> headers = new HashMap<String,ArrayList<String>>();
+
+    private boolean requestedSessionIdFromCookie;
+    private String requestedSessionId;
+    private boolean requestedSessionURL;
+
+    private String queryString;
+
+    public void addCookie(Cookie cookie) {
+        this.cookies.add(cookie);
+    }
+
+    public void setRequestedSessionIdFromCookie(boolean requestedSessionIdFromCookie) {
+        this.requestedSessionIdFromCookie = requestedSessionIdFromCookie;
+    }
+
+    public void setRequestedSessionId(String requestedSessionId) {
+        this.requestedSessionId = requestedSessionId;
+    }
+
+    public boolean isRequestedSessionURL() {
+        return requestedSessionURL;
+    }
+
+    public void setRequestedSessionURL(boolean requestedSessionURL) {
+        this.requestedSessionURL = requestedSessionURL;
+    }
+
+    public void setQueryString(String queryString) {
+        this.queryString = queryString;
+    }
+
+    public void addHeader(String name, String value){
+        //name = name.toLowerCase();
+        synchronized (headers){
+            ArrayList<String> values = headers.get(name);
+            if(values == null){
+                values = new ArrayList<String>();
+                headers.put(name,values);
+            }
+            values.add(value);
+        }
+    }
+
     public HttpRequest3(InputStream is){
         this.is = is;
     }
 
+    public void setContentType(String contentType) {
+        this.contentType = contentType;
+    }
 
+    public void setContentLength(int contentLength) {
+        this.contentLength = contentLength;
+    }
 
     @Override
     public String getAuthType() {
@@ -139,7 +192,7 @@ public class HttpRequest3 implements HttpServletRequest {
 
     @Override
     public boolean isRequestedSessionIdFromCookie() {
-        return false;
+        return requestedSessionIdFromCookie;
     }
 
     @Override

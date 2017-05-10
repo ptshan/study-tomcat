@@ -21,7 +21,7 @@ public class HttpConnector3 implements Runnable{
     @Override
     public void run() {
         try {
-            ServerSocket serverSocket = new ServerSocket(8081,1, InetAddress.getByName("1270.0.1"));
+            ServerSocket serverSocket = new ServerSocket(8081,1, InetAddress.getByName("127.0.0.1"));
             while(!stop){
                 Socket socket = serverSocket.accept();
                 HttpProcessor3 httpProcessor3 = new HttpProcessor3(socket);

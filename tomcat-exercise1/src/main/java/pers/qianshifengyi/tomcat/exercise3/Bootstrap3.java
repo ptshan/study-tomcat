@@ -8,7 +8,7 @@ import pers.qianshifengyi.tomcat.util.StringManager;
 public class Bootstrap3 {
 
     public static void main(String[] args) {
-        //new HttpConnector3().start();
+        new HttpConnector3().start();
 
 
 //        StringManager sm1 = StringManager.getStringManager("pers.qianshifengyi.tomcat.exercise3");
