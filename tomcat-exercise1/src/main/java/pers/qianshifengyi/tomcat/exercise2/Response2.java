@@ -50,11 +50,6 @@ public class Response2 implements ServletResponse {
     }
 
     @Override
-    public String getContentType() {
-        return null;
-    }
-
-    @Override
     public ServletOutputStream getOutputStream() throws IOException {
         return null;
     }
@@ -63,11 +58,6 @@ public class Response2 implements ServletResponse {
     public PrintWriter getWriter() throws IOException {
         writer = new PrintWriter(os,true);
         return writer;
-    }
-
-    @Override
-    public void setCharacterEncoding(String s) {
-
     }
 
     @Override

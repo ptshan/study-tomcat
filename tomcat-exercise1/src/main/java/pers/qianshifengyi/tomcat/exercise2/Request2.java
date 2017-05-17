@@ -164,23 +164,4 @@ public class Request2 implements ServletRequest{
         return null;
     }
 
-    @Override
-    public int getRemotePort() {
-        return 0;
-    }
-
-    @Override
-    public String getLocalName() {
-        return null;
-    }
-
-    @Override
-    public String getLocalAddr() {
-        return null;
-    }
-
-    @Override
-    public int getLocalPort() {
-        return 0;
-    }
 }

@@ -1,5 +1,10 @@
 package pers.qianshifengyi.tomcat.exercise3.http;
 
+import pers.qianshifengyi.tomcat.exercise3.HttpRequest3ServletInputStream;
+import pers.qianshifengyi.tomcat.util.Enumerator;
+import pers.qianshifengyi.tomcat.util.ParameterMap;
+import pers.qianshifengyi.tomcat.util.RequestUtil;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletInputStream;
 import javax.servlet.http.Cookie;
@@ -36,7 +41,20 @@ public class HttpRequest3 implements HttpServletRequest {
 
     private String queryString;
 
-    public void addCookie(Cookie cookie) {
+    private boolean parsed = false;
+
+    private String characterEncoding="UTF-8";
+
+    public InputStream getIs() {
+        return is;
+    }
+
+    public void setIs(InputStream is) {
+        this.is = is;
+    }
+
+    public synchronized void addCookie(Cookie cookie) {
+
         this.cookies.add(cookie);
     }
 
@@ -103,7 +121,7 @@ public class HttpRequest3 implements HttpServletRequest {
 
     @Override
     public Cookie[] getCookies() {
-        return new Cookie[0];
+        return (Cookie[])cookies.toArray();
     }
 
     @Override
@@ -243,17 +261,17 @@ public class HttpRequest3 implements HttpServletRequest {
 
     @Override
     public int getContentLength() {
-        return 0;
+        return contentLength;
     }
 
     @Override
     public String getContentType() {
-        return null;
+        return contentType;
     }
 
     @Override
     public ServletInputStream getInputStream() throws IOException {
-        return null;
+        return new HttpRequest3ServletInputStream(this);
     }
 
     @Override
@@ -263,7 +281,9 @@ public class HttpRequest3 implements HttpServletRequest {
 
     @Override
     public Enumeration getParameterNames() {
-        return null;
+        Map paramsMap = getParameterMap();
+        Set keys = paramsMap.keySet();
+        return new Enumerator(keys);
     }
 
     @Override
@@ -273,7 +293,59 @@ public class HttpRequest3 implements HttpServletRequest {
 
     @Override
     public Map getParameterMap() {
-        return null;
+        ParameterMap results = new ParameterMap();
+        results.setLocked(false);
+        if(characterEncoding == null){
+            characterEncoding = "UTF-8";
+        }
+
+        // 从URL获取请求参数
+        String queryStr = getQueryString();
+        try {
+            RequestUtil.parseParameters(results,queryStr,characterEncoding);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+        // 从请求体获取参数
+        String contentTypeStr = getContentType();
+        if(contentTypeStr == null){
+            contentTypeStr = "";
+        }
+        contentTypeStr = contentTypeStr.trim();
+        if(contentTypeStr.contains(";")){
+            contentTypeStr = contentTypeStr.substring(0,contentTypeStr.indexOf(";"));
+        }
+        if("POST".equals(getMethod()) && getContentLength() >0 && contentTypeStr.equals("application/x-www-form-urlencoded")){
+            byte[] buf = new byte[getContentLength()];
+            try {
+                ServletInputStream sis = getInputStream();
+                int len = 0;
+                // 读取数据到buf中,目的是用于下面的转换
+                while(len < getContentLength()){
+                    int i = sis.read(buf,len,getContentLength()-len);
+                    if(i < 0){
+                        break;
+                    }
+                    len = len + i;
+                }
+                // if(len < getContentLength())
+                if(len != getContentLength()){
+                    throw new IllegalStateException("len and contentLength dismatch");
+                }
+
+                RequestUtil.parseParameters(results,buf,characterEncoding);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
+        }
+
+        results.setLocked(true);
+        parsed = true;
+
+        return results;
     }
 
     @Override
@@ -346,23 +418,4 @@ public class HttpRequest3 implements HttpServletRequest {
         return null;
     }
 
-    @Override
-    public int getRemotePort() {
-        return 0;
-    }
-
-    @Override
-    public String getLocalName() {
-        return null;
-    }
-
-    @Override
-    public String getLocalAddr() {
-        return null;
-    }
-
-    @Override
-    public int getLocalPort() {
-        return 0;
-    }
 }

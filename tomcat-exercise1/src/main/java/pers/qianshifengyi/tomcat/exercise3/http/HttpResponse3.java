@@ -119,11 +119,6 @@ public class HttpResponse3 implements HttpServletResponse {
     }
 
     @Override
-    public String getContentType() {
-        return null;
-    }
-
-    @Override
     public ServletOutputStream getOutputStream() throws IOException {
 
         return null;
@@ -133,11 +128,6 @@ public class HttpResponse3 implements HttpServletResponse {
     public PrintWriter getWriter() throws IOException {
         pw = new PrintWriter(os,true);
         return null;
-    }
-
-    @Override
-    public void setCharacterEncoding(String s) {
-
     }
 
     @Override
