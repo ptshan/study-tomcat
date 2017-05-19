@@ -5,6 +5,7 @@ import org.apache.catalina.*;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 /**
@@ -32,20 +33,18 @@ public class ClientIPLoggerValve implements Valve,Contained{
     @Override
     public void invoke(Request request, Response response, ValveContext valveContext) throws IOException, ServletException {
         valveContext.invokeNext(request,response);
-        ServletRequest sreq = null ;
-        ServletResponse sres = null ;
-        if(request instanceof ServletRequest){
-            sreq = (ServletRequest)request;
-            sres = (ServletResponse)response;
-        }else{
-            System.out.println("ClientIPLoggerValve 不是合法 http");
-        }
+        ServletRequest sreq = request.getRequest() ;
+        ServletResponse sres = response.getResponse() ;
+
+        System.out.println("request:"+request+"  response:"+response);
+        System.out.println("request.getRequest():"+request.getRequest()+"  response.getResponse():"+response.getResponse());
 
         String remoteIp = null;
         if(sreq != null && sres != null){
             remoteIp = sreq.getRemoteAddr();
         }
-
+        System.out.println("sreq.getRemoteAddr():"+sreq.getRemoteAddr());
+        System.out.println("((HttpServletRequest)sreq).getRemoteAddr():"+((HttpServletRequest)sreq).getRemoteAddr());
         System.out.println("remoteIP:"+remoteIp);
         System.out.println("--------------- ClientIPLoggerValve end -----------------");
     }

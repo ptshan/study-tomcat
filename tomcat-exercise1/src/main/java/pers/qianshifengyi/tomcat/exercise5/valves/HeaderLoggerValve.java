@@ -33,8 +33,8 @@ public class HeaderLoggerValve  implements Valve,Contained {
     public void invoke(Request request, Response response, ValveContext valveContext) throws IOException, ServletException {
         valveContext.invokeNext(request,response);
         HttpServletRequest hsreq = null ;
-        if(request instanceof HttpServletRequest){
-            hsreq = (HttpServletRequest)request;
+        if(request.getRequest() instanceof HttpServletRequest){
+            hsreq = (HttpServletRequest)request.getRequest();
         }else{
             System.out.println("HeaderLoggerValve 不是合法 http");
         }
@@ -44,7 +44,7 @@ public class HeaderLoggerValve  implements Valve,Contained {
             while(headers.hasMoreElements()){
                 String headerName = headers.nextElement();
                 String headerValue = hsreq.getHeader(headerName);
-                System.out.println("headerName:"+headerName+"  , headerValue:"+headerValue);
+                System.out.println("HeaderLoggerValve headerName:"+headerName+"  , headerValue:"+headerValue);
             }
         }
         System.out.println("--------------- HeaderLoggerValve end -----------------");

@@ -32,9 +32,9 @@ public class SimplePipeline implements Pipeline {
     @Override
     public void setBasic(Valve valve) {
         this.basicValve = valve;
-        if(valve instanceof Contained){
-            ((Contained)valve).setContainer(container);
-        }
+//        if(valve instanceof Contained){
+//            ((Contained)valve).setContainer(container);
+//        }
     }
 
     @Override

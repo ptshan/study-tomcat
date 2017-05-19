@@ -1,5 +1,6 @@
 package pers.qianshifengyi.tomcat.exercise2;
 
+import javax.servlet.Servlet;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -25,8 +26,8 @@ public class ServletResourceProcessor2 {
         System.out.println("servletName:"+servletName);
         URL[] urls = new URL[2];
         URLStreamHandler urlStreamHandler = null;
-        File classesFile = new File(Constants.WEBAPPS+"/WEB-INF/classes/");
-        File jarFile = new File(Constants.WEBAPPS+"/WEB-INF/lib/");
+        File classesFile = new File(pers.qianshifengyi.tomcat.util.Constants.WEB_CLASSES);
+        File jarFile = new File(pers.qianshifengyi.tomcat.util.Constants.WEB_LIB);
 
         try {
            // urls[0] = new URL("file",null,classesFile.getCanonicalPath());
@@ -44,21 +45,17 @@ public class ServletResourceProcessor2 {
             // org.apache.catalina.loader.StandardClassLoader class.
             urls[1] = new URL(null, repository2, urlStreamHandler);
 
-            System.out.println("urls[0]:"+urls[0]);
-            System.out.println("urls[1]:"+urls[1]);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         URLClassLoader loader = new URLClassLoader(urls);
-        System.out.println("find path1:"+loader.findResource("pers/qianshifengyi/tomcat/exercise2/ResourceServlet.class"));
-        System.out.println("fastjson path:"+loader.getResource("fastjson.jar"));
 
 
         try {
             //Class clazz = loader.loadClass("pers/qianshifengyi/tomcat/exercise2/"+servletName+".class");
-            Class clazz = loader.loadClass("pers.qianshifengyi.tomcat.exercise2."+servletName);
-            ResourceServlet rs = (ResourceServlet)clazz.newInstance();
+            Class clazz = loader.loadClass("pers.qianshifengyi.web.app.servlet.TestServlet");
+            Servlet rs = (Servlet)clazz.newInstance();
             rs.service(request2,response2);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
