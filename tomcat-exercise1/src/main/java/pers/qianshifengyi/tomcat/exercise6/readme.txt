@@ -1,0 +1,6 @@
+Lifecycle说明:
+1、SimpleContext6、SimpleLoader6、SimplePipeline6、SimpleWrapper6均实现了lifecycle接口,实现了lifecycle接口的
+类可以被start 和 stop
+2、要想触发LifecycleListener监听器,需要将LifecycleListener放到LifecycleSupport中,并通过
+lifecycleSupport.fireLifecycleEvent(Lifecycle.BEFORE_START_EVENT,null)来触发
+3、LifecycleListener的lifecycleEvent方法用来处理监听到的各种感兴趣事件
