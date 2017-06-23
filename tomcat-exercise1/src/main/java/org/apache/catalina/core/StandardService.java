@@ -182,11 +182,11 @@ public final class StandardService
      * @param container The new Container
      */
     public void setContainer(Container container) {
-
+        // 此时container是 老的 container,还没进行 this.container = container; 赋值
         Container oldContainer = this.container;
         if ((oldContainer != null) && (oldContainer instanceof Engine))
             ((Engine) oldContainer).setService(null);
-        this.container = container;
+        this.container = container; //此时 this.container 是新传入的 container
         if ((this.container != null) && (this.container instanceof Engine))
             ((Engine) this.container).setService(this);
         if (started && (this.container != null) &&

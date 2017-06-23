@@ -660,16 +660,17 @@ public final class StandardWrapper
             if (!singleThreadModel) {
                 if (debug >= 2)
                     log("  Returning non-STM instance");
-                countAllocated++;
+                countAllocated++; // 每分配一次servlet,countAllocated加一,尽管非STM的Servlet是单例的
                 return (instance);
             }
 
         }
 
         synchronized (instancePool) {
-
+            // 总共的分配次数   >= 当前的STM实例数目
             while (countAllocated >= nInstances) {
                 // Allocate a new instance if possible, or else wait
+                // 如果当前的STM实例数目 < 最大实例数目 通过 while 将 instancePool 装满
                 if (nInstances < maxInstances) {
                     try {
                         instancePool.push(loadServlet());
@@ -680,7 +681,7 @@ public final class StandardWrapper
                         throw new ServletException
                             (sm.getString("standardWrapper.allocate"), e);
                     }
-                } else {
+                } else { // 如果当前实例数目  >= 当前最大实例数目
                     try {
                         instancePool.wait();
                     } catch (InterruptedException e) {

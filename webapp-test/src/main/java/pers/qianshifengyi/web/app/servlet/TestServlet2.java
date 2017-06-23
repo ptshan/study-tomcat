@@ -1,6 +1,8 @@
 package pers.qianshifengyi.web.app.servlet;
 
 import com.alibaba.fastjson.JSONObject;
+import org.apache.http.client.HttpClient;
+import org.apache.http.impl.client.DefaultHttpClient;
 
 import javax.servlet.*;
 import java.io.IOException;
@@ -24,6 +26,7 @@ public class TestServlet2 implements Servlet {
     public void service(ServletRequest servletRequest, ServletResponse servletResponse) throws ServletException, IOException {
 
         System.out.println("i am TestServlet2 ! wa haha ");
+        HttpClient httpClient = new DefaultHttpClient();
 
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("code","777");

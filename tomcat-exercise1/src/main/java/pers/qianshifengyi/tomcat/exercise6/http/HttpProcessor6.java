@@ -51,7 +51,10 @@ public class HttpProcessor6 {
         HttpServletRequest6 httpServletRequest = new HttpServletRequest6();
         request6.setServletRequest(httpServletRequest);
         while(line != null && !line.trim().equals("")){
+            System.out.println(line);
             if(firstLine == true){
+                // GET /test/TestServlet HTTP/1.1
+                // Host: 127.0.0.1:8082
                 String[] firstArrs = line.split(" ");
                 request6.setRequestURI(firstArrs[1]);
                 request6.setDecodedRequestURI(firstArrs[1]);
@@ -68,7 +71,6 @@ public class HttpProcessor6 {
             line = br.readLine();
         }
 
-        System.out.println("httpServletRequest.getHeader(\"Host\"):"+httpServletRequest.getHeader("Host"));
         String[] hostString = httpServletRequest.getHeader("Host").split(":");
         httpServletRequest.setRemoteAddr(hostString[0]);
 

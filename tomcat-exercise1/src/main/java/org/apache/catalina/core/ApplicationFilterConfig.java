@@ -239,11 +239,16 @@ final class ApplicationFilterConfig implements FilterConfig {
         // Identify the class loader we will be using
         String filterClass = filterDef.getFilterClass();
         ClassLoader classLoader = null;
+        // 如果 filterClass 以 org.apache.catalina. 开头,说明当前过滤器为catalina过滤器,
+        // 因为当前类 ApplicationFilterConfig 在catalina包下,故用当前类的加载器加载
+
         if (filterClass.startsWith("org.apache.catalina."))
             classLoader = this.getClass().getClassLoader();
         else
+            // filterClass 为应用的包下的过滤器,例如,com.itany 包下的,则用context的类加载器即应用加载器,例如:WebappClassLoader
             classLoader = context.getLoader().getClassLoader();
 
+        // 获取当前线程的上下文类加载器,该变量未使用
         ClassLoader oldCtxClassLoader =
             Thread.currentThread().getContextClassLoader();
 

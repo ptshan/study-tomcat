@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<address-book name1="book">
+    <person id="1" category="acquaintance" try1="would be ignored">
+        <name>Gonzo</name>
+        <email type="business">gonzo@muppets.com</email>
+        <gender result="the whole tag would be ignored">male</gender>
+    </person>
+    <person id="2" category="rolemodel">
+        <name>Kermit</name>
+        <email type="business">kermit@muppets.com</email>
+        <email type="home">kermie@acme.com</email>
+    </person>
+</address-book>

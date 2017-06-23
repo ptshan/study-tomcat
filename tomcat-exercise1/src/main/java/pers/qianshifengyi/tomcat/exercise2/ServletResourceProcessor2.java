@@ -44,6 +44,8 @@ public class ServletResourceProcessor2 {
             // the code for forming the URL is taken from the addRepository method in
             // org.apache.catalina.loader.StandardClassLoader class.
             urls[1] = new URL(null, repository2, urlStreamHandler);
+            System.out.println("urls[0]:"+urls[0]);
+            System.out.println("urls[1]:"+urls[1]);
 
         } catch (IOException e) {
             e.printStackTrace();

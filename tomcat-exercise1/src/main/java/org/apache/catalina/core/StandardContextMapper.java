@@ -207,6 +207,7 @@ public final class StandardContextMapper
         String name = null;
 
         // Rule 1 -- Exact Match
+        // 1、若relativeURI 不等于 /,用relativeURI去找
         if (wrapper == null) {
             if (debug >= 2)
                 context.log("  Trying exact match");
@@ -221,6 +222,7 @@ public final class StandardContextMapper
         }
 
         // Rule 2 -- Prefix Match
+        // 2、用relativeURI + "/*" 去找
         if (wrapper == null) {
             if (debug >= 2)
                 context.log("  Trying prefix match");
@@ -246,6 +248,7 @@ public final class StandardContextMapper
         if (wrapper == null) {
             if (debug >= 2)
                 context.log("  Trying extension match");
+            // 斜杠；切口；斜线号；劈
             int slash = relativeURI.lastIndexOf('/');
             if (slash >= 0) {
                 String last = relativeURI.substring(slash);

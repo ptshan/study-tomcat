@@ -237,6 +237,7 @@ final class ApplicationFilterChain implements FilterChain {
         }
 
         // We fell off the end of the chain -- call the servlet instance
+        // 若进入此处,说明拦截器已经完成了,即this.iterator.hasNext()为false,拦截器完成,需要调用servlet.service
         try {
             support.fireInstanceEvent(InstanceEvent.BEFORE_SERVICE_EVENT,
                                       servlet, request, response);

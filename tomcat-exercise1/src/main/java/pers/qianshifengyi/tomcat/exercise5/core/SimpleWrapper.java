@@ -144,16 +144,16 @@ public class SimpleWrapper implements Wrapper,Pipeline{
         ClassLoader classLoader = loaderTemp.getClassLoader();
 
         try {
+//            Class convertUtilsClass = classLoader.loadClass("org.apache.http.impl.client.DefaultHttpClient");
+//            System.out.println("********************************************convertUtilsClass:"+convertUtilsClass);
+//            System.out.println("********************************************convertUtilsClass.newInstance():"+convertUtilsClass.newInstance());
+
             Class clazz = classLoader.loadClass(servletClassName);
             Object servletObj = clazz.newInstance();
             if(servletObj instanceof Servlet){
                 currServlet = (Servlet)servletObj;
             }
-        } catch (ClassNotFoundException e) {
-            System.out.println(sm.getString("SimpleWrapper.loader.classLoader.occur_file_not_found_exception"));
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

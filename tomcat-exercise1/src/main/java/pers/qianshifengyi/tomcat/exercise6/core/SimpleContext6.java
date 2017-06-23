@@ -323,9 +323,9 @@ public class SimpleContext6 implements Context,Lifecycle,Pipeline{
 
         lifecycleSupport.fireLifecycleEvent(Lifecycle.BEFORE_START_EVENT,null);
         System.out.println("------------------------------------------------");
-        if(loader instanceof Lifecycle){
-            ((Lifecycle) loader).start();
-        }
+            if (loader != null && (loader instanceof Lifecycle)) {
+                ((Lifecycle) loader).start();
+            }
 
         for(Container containerTemp:childrens){
             if(containerTemp instanceof Lifecycle){

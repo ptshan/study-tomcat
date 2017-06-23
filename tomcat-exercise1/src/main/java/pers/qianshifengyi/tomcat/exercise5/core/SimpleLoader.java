@@ -23,12 +23,14 @@ public class SimpleLoader implements Loader {
             URLStreamHandler urlStreamHandler = null;
             File classesFile = new File(Constants.WEB_CLASSES);
             File libFile = new File(Constants.WEB_LIB);
+            File libFile2 = new File("/Users/zhangshan193/Downloads/lib_test/");
+
             String repository0 = (new URL("file", null, classesFile.getCanonicalPath() + File.separator)).toString();
             urls[0] = new URL(null, repository0, urlStreamHandler);
 
             String repository1 = (new URL("file", null, libFile.getCanonicalPath() + File.separator)).toString();
             urls[1] = new URL(null, repository1, urlStreamHandler);
-
+            //urls[2]=new URL(null, (new URL("file", null, libFile2.getCanonicalPath() + File.separator)).toString(), urlStreamHandler);
             URLClassLoader classLoader = new URLClassLoader(urls);
 
             return classLoader;
