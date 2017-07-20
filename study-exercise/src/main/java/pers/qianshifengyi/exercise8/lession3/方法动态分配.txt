@@ -1,0 +1,355 @@
+
+-----------------------------------------以下为 TestDynamicDispatch
+javap -verbose TestDynamicDispatch
+警告: 二进制文件TestDynamicDispatch包含pers.qianshifengyi.exercise8.lession3.TestDynamicDispatch
+Classfile /Users/zhangshan193/Documents/projects/git_project/study-tomcat/study-exercise/target/classes/pers/qianshifengyi/exercise8/lession3/TestDynamicDispatch.class
+  Last modified 2017-7-8; size 794 bytes
+  MD5 checksum 2d5a8e857acf0dde316b3dc39316399d
+  Compiled from "TestDynamicDispatch.java"
+public class pers.qianshifengyi.exercise8.lession3.TestDynamicDispatch
+  minor version: 0
+  major version: 50
+  flags: ACC_PUBLIC, ACC_SUPER
+Constant pool:
+   #1 = Methodref          #8.#25         // java/lang/Object."<init>":()V
+   #2 = Class              #26            // pers/qianshifengyi/exercise8/lession3/Man
+   #3 = Methodref          #2.#25         // pers/qianshifengyi/exercise8/lession3/Man."<init>":()V
+   #4 = Class              #27            // pers/qianshifengyi/exercise8/lession3/Woman
+   #5 = Methodref          #4.#25         // pers/qianshifengyi/exercise8/lession3/Woman."<init>":()V
+   #6 = Methodref          #28.#29        // pers/qianshifengyi/exercise8/lession3/Human.sayHello:()V
+   #7 = Class              #30            // pers/qianshifengyi/exercise8/lession3/TestDynamicDispatch
+   #8 = Class              #31            // java/lang/Object
+   #9 = Utf8               <init>
+  #10 = Utf8               ()V
+  #11 = Utf8               Code
+  #12 = Utf8               LineNumberTable
+  #13 = Utf8               LocalVariableTable
+  #14 = Utf8               this
+  #15 = Utf8               Lpers/qianshifengyi/exercise8/lession3/TestDynamicDispatch;
+  #16 = Utf8               main
+  #17 = Utf8               ([Ljava/lang/String;)V
+  #18 = Utf8               args
+  #19 = Utf8               [Ljava/lang/String;
+  #20 = Utf8               man
+  #21 = Utf8               Lpers/qianshifengyi/exercise8/lession3/Human;
+  #22 = Utf8               woman
+  #23 = Utf8               SourceFile
+  #24 = Utf8               TestDynamicDispatch.java
+  #25 = NameAndType        #9:#10         // "<init>":()V
+  #26 = Utf8               pers/qianshifengyi/exercise8/lession3/Man
+  #27 = Utf8               pers/qianshifengyi/exercise8/lession3/Woman
+  #28 = Class              #32            // pers/qianshifengyi/exercise8/lession3/Human
+  #29 = NameAndType        #33:#10        // sayHello:()V
+  #30 = Utf8               pers/qianshifengyi/exercise8/lession3/TestDynamicDispatch
+  #31 = Utf8               java/lang/Object
+  #32 = Utf8               pers/qianshifengyi/exercise8/lession3/Human
+  #33 = Utf8               sayHello
+{
+  public pers.qianshifengyi.exercise8.lession3.TestDynamicDispatch();
+    descriptor: ()V
+    flags: ACC_PUBLIC
+    Code:
+      stack=1, locals=1, args_size=1
+         0: aload_0
+         1: invokespecial #1                  // Method java/lang/Object."<init>":()V
+         4: return
+      LineNumberTable:
+        line 6: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       5     0  this   Lpers/qianshifengyi/exercise8/lession3/TestDynamicDispatch;
+
+  public static void main(java.lang.String[]);
+    descriptor: ([Ljava/lang/String;)V
+    flags: ACC_PUBLIC, ACC_STATIC
+    Code:
+      stack=2, locals=3, args_size=1
+         0: new           #2                  // class pers/qianshifengyi/exercise8/lession3/Man
+         3: dup
+         4: invokespecial #3                  // Method pers/qianshifengyi/exercise8/lession3/Man."<init>":()V
+         7: astore_1
+         8: new           #4                  // class pers/qianshifengyi/exercise8/lession3/Woman
+        11: dup
+        12: invokespecial #5                  // Method pers/qianshifengyi/exercise8/lession3/Woman."<init>":()V
+        15: astore_2
+        16: aload_1
+        17: invokevirtual #6                  // Method pers/qianshifengyi/exercise8/lession3/Human.sayHello:()V
+        20: aload_2
+        21: invokevirtual #6                  // Method pers/qianshifengyi/exercise8/lession3/Human.sayHello:()V
+        24: new           #4                  // class pers/qianshifengyi/exercise8/lession3/Woman
+        27: dup
+        28: invokespecial #5                  // Method pers/qianshifengyi/exercise8/lession3/Woman."<init>":()V
+        31: astore_1
+        32: aload_1
+        33: invokevirtual #6                  // Method pers/qianshifengyi/exercise8/lession3/Human.sayHello:()V
+        36: return
+      LineNumberTable:
+        line 9: 0
+        line 10: 8
+        line 11: 16
+        line 12: 20
+        line 14: 24
+        line 15: 32
+        line 16: 36
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      37     0  args   [Ljava/lang/String;
+            8      29     1   man   Lpers/qianshifengyi/exercise8/lession3/Human;
+           16      21     2 woman   Lpers/qianshifengyi/exercise8/lession3/Human;
+}
+SourceFile: "TestDynamicDispatch.java"
+
+
+-----------------------------------------以下为 Human
+javap -verbose Human
+警告: 二进制文件Human包含pers.qianshifengyi.exercise8.lession3.Human
+Classfile /Users/zhangshan193/Documents/projects/git_project/study-tomcat/study-exercise/target/classes/pers/qianshifengyi/exercise8/lession3/Human.class
+  Last modified 2017-7-8; size 335 bytes
+  MD5 checksum 96774d482365b8a1a08fa8ed1f2244a9
+  Compiled from "Human.java"
+public abstract class pers.qianshifengyi.exercise8.lession3.Human
+  minor version: 0
+  major version: 50
+  flags: ACC_PUBLIC, ACC_SUPER, ACC_ABSTRACT
+Constant pool:
+   #1 = Methodref          #3.#14         // java/lang/Object."<init>":()V
+   #2 = Class              #15            // pers/qianshifengyi/exercise8/lession3/Human
+   #3 = Class              #16            // java/lang/Object
+   #4 = Utf8               <init>
+   #5 = Utf8               ()V
+   #6 = Utf8               Code
+   #7 = Utf8               LineNumberTable
+   #8 = Utf8               LocalVariableTable
+   #9 = Utf8               this
+  #10 = Utf8               Lpers/qianshifengyi/exercise8/lession3/Human;
+  #11 = Utf8               sayHello
+  #12 = Utf8               SourceFile
+  #13 = Utf8               Human.java
+  #14 = NameAndType        #4:#5          // "<init>":()V
+  #15 = Utf8               pers/qianshifengyi/exercise8/lession3/Human
+  #16 = Utf8               java/lang/Object
+{
+  public pers.qianshifengyi.exercise8.lession3.Human();
+    descriptor: ()V
+    flags: ACC_PUBLIC
+    Code:
+      stack=1, locals=1, args_size=1
+         0: aload_0
+         1: invokespecial #1                  // Method java/lang/Object."<init>":()V
+         4: return
+      LineNumberTable:
+        line 6: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       5     0  this   Lpers/qianshifengyi/exercise8/lession3/Human;
+
+  protected abstract void sayHello();
+    descriptor: ()V
+    flags: ACC_PROTECTED, ACC_ABSTRACT
+}
+SourceFile: "Human.java"
+
+
+
+-----------------------------------------以下为 Man
+javap -verbose Man
+警告: 二进制文件Man包含pers.qianshifengyi.exercise8.lession3.Man
+Classfile /Users/zhangshan193/Documents/projects/git_project/study-tomcat/study-exercise/target/classes/pers/qianshifengyi/exercise8/lession3/Man.class
+  Last modified 2017-7-8; size 567 bytes
+  MD5 checksum 49c6dd8482c3872685a6a42f98f5abcd
+  Compiled from "Man.java"
+public class pers.qianshifengyi.exercise8.lession3.Man extends pers.qianshifengyi.exercise8.lession3.Human
+  minor version: 0
+  major version: 50
+  flags: ACC_PUBLIC, ACC_SUPER
+Constant pool:
+   #1 = Methodref          #6.#17         // pers/qianshifengyi/exercise8/lession3/Human."<init>":()V
+   #2 = Fieldref           #18.#19        // java/lang/System.out:Ljava/io/PrintStream;
+   #3 = String             #20            // man say hello
+   #4 = Methodref          #21.#22        // java/io/PrintStream.println:(Ljava/lang/String;)V
+   #5 = Class              #23            // pers/qianshifengyi/exercise8/lession3/Man
+   #6 = Class              #24            // pers/qianshifengyi/exercise8/lession3/Human
+   #7 = Utf8               <init>
+   #8 = Utf8               ()V
+   #9 = Utf8               Code
+  #10 = Utf8               LineNumberTable
+  #11 = Utf8               LocalVariableTable
+  #12 = Utf8               this
+  #13 = Utf8               Lpers/qianshifengyi/exercise8/lession3/Man;
+  #14 = Utf8               sayHello
+  #15 = Utf8               SourceFile
+  #16 = Utf8               Man.java
+  #17 = NameAndType        #7:#8          // "<init>":()V
+  #18 = Class              #25            // java/lang/System
+  #19 = NameAndType        #26:#27        // out:Ljava/io/PrintStream;
+  #20 = Utf8               man say hello
+  #21 = Class              #28            // java/io/PrintStream
+  #22 = NameAndType        #29:#30        // println:(Ljava/lang/String;)V
+  #23 = Utf8               pers/qianshifengyi/exercise8/lession3/Man
+  #24 = Utf8               pers/qianshifengyi/exercise8/lession3/Human
+  #25 = Utf8               java/lang/System
+  #26 = Utf8               out
+  #27 = Utf8               Ljava/io/PrintStream;
+  #28 = Utf8               java/io/PrintStream
+  #29 = Utf8               println
+  #30 = Utf8               (Ljava/lang/String;)V
+{
+  public pers.qianshifengyi.exercise8.lession3.Man();
+    descriptor: ()V
+    flags: ACC_PUBLIC
+    Code:
+      stack=1, locals=1, args_size=1
+         0: aload_0
+         1: invokespecial #1                  // Method pers/qianshifengyi/exercise8/lession3/Human."<init>":()V
+         4: return
+      LineNumberTable:
+        line 6: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       5     0  this   Lpers/qianshifengyi/exercise8/lession3/Man;
+
+  protected void sayHello();
+    descriptor: ()V
+    flags: ACC_PROTECTED
+    Code:
+      stack=2, locals=1, args_size=1
+         0: getstatic     #2                  // Field java/lang/System.out:Ljava/io/PrintStream;
+         3: ldc           #3                  // String man say hello
+         5: invokevirtual #4                  // Method java/io/PrintStream.println:(Ljava/lang/String;)V
+         8: return
+      LineNumberTable:
+        line 9: 0
+        line 10: 8
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       9     0  this   Lpers/qianshifengyi/exercise8/lession3/Man;
+}
+SourceFile: "Man.java"
+
+
+
+
+-----------------------------------------以下为 Woman
+javap -verbose Woman
+警告: 二进制文件Woman包含pers.qianshifengyi.exercise8.lession3.Woman
+Classfile /Users/zhangshan193/Documents/projects/git_project/study-tomcat/study-exercise/target/classes/pers/qianshifengyi/exercise8/lession3/Woman.class
+  Last modified 2017-7-8; size 575 bytes
+  MD5 checksum 308c86747da1a13b787641c2e38c787d
+  Compiled from "Woman.java"
+public class pers.qianshifengyi.exercise8.lession3.Woman extends pers.qianshifengyi.exercise8.lession3.Human
+  minor version: 0
+  major version: 50
+  flags: ACC_PUBLIC, ACC_SUPER
+Constant pool:
+   #1 = Methodref          #6.#17         // pers/qianshifengyi/exercise8/lession3/Human."<init>":()V
+   #2 = Fieldref           #18.#19        // java/lang/System.out:Ljava/io/PrintStream;
+   #3 = String             #20            // woman say hello
+   #4 = Methodref          #21.#22        // java/io/PrintStream.println:(Ljava/lang/String;)V
+   #5 = Class              #23            // pers/qianshifengyi/exercise8/lession3/Woman
+   #6 = Class              #24            // pers/qianshifengyi/exercise8/lession3/Human
+   #7 = Utf8               <init>
+   #8 = Utf8               ()V
+   #9 = Utf8               Code
+  #10 = Utf8               LineNumberTable
+  #11 = Utf8               LocalVariableTable
+  #12 = Utf8               this
+  #13 = Utf8               Lpers/qianshifengyi/exercise8/lession3/Woman;
+  #14 = Utf8               sayHello
+  #15 = Utf8               SourceFile
+  #16 = Utf8               Woman.java
+  #17 = NameAndType        #7:#8          // "<init>":()V
+  #18 = Class              #25            // java/lang/System
+  #19 = NameAndType        #26:#27        // out:Ljava/io/PrintStream;
+  #20 = Utf8               woman say hello
+  #21 = Class              #28            // java/io/PrintStream
+  #22 = NameAndType        #29:#30        // println:(Ljava/lang/String;)V
+  #23 = Utf8               pers/qianshifengyi/exercise8/lession3/Woman
+  #24 = Utf8               pers/qianshifengyi/exercise8/lession3/Human
+  #25 = Utf8               java/lang/System
+  #26 = Utf8               out
+  #27 = Utf8               Ljava/io/PrintStream;
+  #28 = Utf8               java/io/PrintStream
+  #29 = Utf8               println
+  #30 = Utf8               (Ljava/lang/String;)V
+{
+  public pers.qianshifengyi.exercise8.lession3.Woman();
+    descriptor: ()V
+    flags: ACC_PUBLIC
+    Code:
+      stack=1, locals=1, args_size=1
+         0: aload_0
+         1: invokespecial #1                  // Method pers/qianshifengyi/exercise8/lession3/Human."<init>":()V
+         4: return
+      LineNumberTable:
+        line 6: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       5     0  this   Lpers/qianshifengyi/exercise8/lession3/Woman;
+
+  protected void sayHello();
+    descriptor: ()V
+    flags: ACC_PROTECTED
+    Code:
+      stack=2, locals=1, args_size=1
+         0: getstatic     #2                  // Field java/lang/System.out:Ljava/io/PrintStream;
+         3: ldc           #3                  // String woman say hello
+         5: invokevirtual #4                  // Method java/io/PrintStream.println:(Ljava/lang/String;)V
+         8: return
+      LineNumberTable:
+        line 9: 0
+        line 10: 8
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       9     0  this   Lpers/qianshifengyi/exercise8/lession3/Woman;
+}
+SourceFile: "Woman.java"
+C02QJJ7HFVH5:lession3 zhangshan193$ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
