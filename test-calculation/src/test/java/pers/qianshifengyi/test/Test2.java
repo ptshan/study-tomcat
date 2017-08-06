@@ -2,9 +2,6 @@ package pers.qianshifengyi.test;
 
 import org.junit.Test;
 
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
-
 /**
  * Created by zhangshan193 on 17/3/14.
  */
