@@ -1,10 +1,15 @@
 package pers.qianshifengyi.zk;
 
+import org.apache.zookeeper.KeeperException;
 import org.apache.zookeeper.WatchedEvent;
 import org.apache.zookeeper.Watcher;
 import org.apache.zookeeper.ZooKeeper;
+import org.apache.zookeeper.data.Stat;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.List;
+import java.util.concurrent.CountDownLatch;
 
 /**
  * http://blog.csdn.net/qq910894904/article/details/41726279
@@ -61,6 +66,11 @@ public class WatcherTest {
 
     private static final String ZK_URL="127.0.0.1:2181";
 
+    private CountDownLatch connectedLatch = new CountDownLatch(1);
+
+    private long sessionId = 0;
+    byte[] sessionPwd  = null;
+
     /**
      * 选择的节点目录结构为：
      * /animal
@@ -80,7 +90,10 @@ public class WatcherTest {
         zooKeeper = new ZooKeeper(ZK_URL, 5000, new Watcher() {
             @Override
             public void process(WatchedEvent event) {
-                System.out.println("zk 初始化watcher："+event);
+                System.out.println("WatcherTest zk 初始化WatchedEvent："+event);
+                if(event.getState().equals(Event.KeeperState.SyncConnected)){
+                    connectedLatch.countDown();
+                }
             }
         });
 
@@ -95,13 +108,200 @@ public class WatcherTest {
      *
      */
     @Test
-    public void testCreateCurrentNode(){
+    public void testCreateCurrentNode()throws Exception{
+        // 等待zookeeper连接完成，再执行
+        connectedLatch.await();
+        sessionId = zooKeeper.getSessionId();
+        sessionPwd = zooKeeper.getSessionPasswd();
+        System.out.println("sessionId:"+sessionId);
+        System.out.println("sessionPwd:"+new String(sessionPwd));
+        CountDownLatch blockingLatch = new CountDownLatch(1);
 
+        watch();
 
+        // 执行15秒
+        Thread.sleep(15000);
+        System.out.println("--- 即将断开");
+        zooKeeper.close();
+        // 关闭15秒后重连
+        Thread.sleep(5000);
+        System.out.println("--- 即将 重连");
+        zooKeeper = new ZooKeeper(ZK_URL, 5000, new Watcher() {
+            @Override
+            public void process(WatchedEvent event) {
+                System.out.println("WatcherHelpTest zk 初始化WatchedEvent："+event);
 
+                if(event.getState().equals(Event.KeeperState.SyncConnected)){
+                    System.out.println("---- zk 连接已经建立完成  ------------");
+                    connectedLatch.countDown();
+                }
 
+            }
+        },sessionId,sessionPwd);
+
+//        watch();
+
+        blockingLatch.await();
     }
 
+    private void watch()throws Exception{
+        new Thread(() -> {
+            for(int i=1;i<10000;i++) {
+                System.out.println("getData <<<<<<<<<<<<<<第 "+i+" 次监控");
+                CountDownLatch tempLatch = new CountDownLatch(1);
+                try {
+                    byte[] data = zooKeeper.getData("/animal", new Watcher() {
+                        @Override
+                        public void process(WatchedEvent event) {
+                            System.out.println("create当前节点 getData WatchedEvent：" + event);
+                            tempLatch.countDown();
+                        }
+                    }, null);
+                    System.out.println("getData 数据为:"+new String(data));
+                } catch (KeeperException e) {
+                    System.out.println("getData exception:"+e.getMessage());
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }finally {
+                    try {
+                        tempLatch.await();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+
+            }
+        }).start();
+
+        new Thread(() -> {
+            for(int i=1;i<10000;i++) {
+                System.out.println("getChildren <<<<<<<<<<<<<<第 " + i + " 次监控");
+                CountDownLatch tempLatch = new CountDownLatch(1);
+                try {
+                    List<String> children = zooKeeper.getChildren("/animal", new Watcher() {
+                        @Override
+                        public void process(WatchedEvent event) {
+                            System.out.println("create当前节点 getChildren WatchedEvent：" + event);
+                            tempLatch.countDown();
+                        }
+                    });
+
+                    if(children == null ){
+                        System.out.println("children is null");
+                    }else if(children.size() == 0){
+                        System.out.println("children size == 0");
+                    }else{
+                        //children.forEach(System.out::println);
+                        for(String child:children){
+                            System.out.println("--> child:"+child);
+                        }
+                    }
+
+                } catch (KeeperException e) {
+                    System.out.println("getChildren exception:"+e.getMessage());
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }finally {
+                    try {
+                        tempLatch.await();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }).start();
+
+
+        new Thread(() -> {
+            for(int i=1;i<10000;i++) {
+                System.out.println("exists <<<<<<<<<<<<<<第 " + i + " 次监控");
+                CountDownLatch tempLatch = new CountDownLatch(1);
+                try {
+                    Stat stat = zooKeeper.exists("/animal", new Watcher() {
+                        @Override
+                        public void process(WatchedEvent event) {
+                            System.out.println("create当前节点 exists WatchedEvent：" + event);
+                            tempLatch.countDown();
+                        }
+                    });
+                    System.out.println("exists stat:"+stat);
+                } catch (KeeperException e) {
+                    System.out.println("exists exception:"+e.getMessage());
+
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }finally {
+                    try {
+                        tempLatch.await();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }).start();
+
+
+
+
+        new Thread(() -> {
+            for(int i=1;i<10000;i++) {
+                System.out.println("getData <<<<<<<<<<<<<<第 "+i+" 次监控");
+                CountDownLatch tempLatch = new CountDownLatch(1);
+                try {
+                    byte[] data = zooKeeper.getData("/animal/person1", new Watcher() {
+                        @Override
+                        public void process(WatchedEvent event) {
+                            System.out.println("create当前节点 /animal/person1  getData WatchedEvent：" + event);
+                            tempLatch.countDown();
+                        }
+                    }, null);
+                    System.out.println("/animal/person1 getData 数据为:"+new String(data));
+                } catch (KeeperException e) {
+                    System.out.println("/animal/person1 getData exception:"+e.getMessage());
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }finally {
+                    try {
+                        tempLatch.await();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+
+            }
+        }).start();
+
+
+        new Thread(() -> {
+            for(int i=1;i<10000;i++) {
+                System.out.println("exists <<<<<<<<<<<<<<第 " + i + " 次监控");
+                CountDownLatch tempLatch = new CountDownLatch(1);
+                try {
+                    Stat stat = zooKeeper.exists("/animal/person1", new Watcher() {
+                        @Override
+                        public void process(WatchedEvent event) {
+                            System.out.println("/animal/person1 create当前节点 exists WatchedEvent：" + event);
+                            tempLatch.countDown();
+                        }
+                    });
+                    System.out.println("/animal/person1 exists stat:"+stat);
+                } catch (KeeperException e) {
+                    System.out.println("/animal/person1 exists exception:"+e.getMessage());
+
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }finally {
+                    try {
+                        tempLatch.await();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }).start();
+    }
 
     /**
      * set当前节点
@@ -112,7 +312,7 @@ public class WatcherTest {
      *
      */
     @Test
-    public void testSetCurrentNode(){
+    public void testSetCurrentNode() throws Exception{
 
     }
 
@@ -126,9 +326,20 @@ public class WatcherTest {
      *
      */
     @Test
-    public void testDeleteCurrentNode(){
+    public void testDeleteCurrentNode() throws Exception{
 
     }
+
+    @Test
+    public void testRecoverConn() throws Exception{
+
+        //zooKeeper.register();
+
+
+
+    }
+
+
 
 
 }
