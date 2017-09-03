@@ -4,8 +4,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>pers.qianshifengyi.test</groupId>
-    <artifactId>springboot-test</artifactId>
+    <groupId>pers.qianshifengyi.spring.boot.jetty</groupId>
+    <artifactId>spring-boot-jetty-test</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <parent>
@@ -18,26 +18,48 @@
         <jetty.version>9.2.17.v20160517</jetty.version>
     </properties>
 
-    <!--<properties>-->
-        <!--<jetty.version>8.1.15.v20140411</jetty.version>-->
-        <!--<jetty-jsp.version>2.2.0.v201112011158</jetty-jsp.version>-->
-    <!--</properties>-->
-
     <dependencies>
-        <!-- https://mvnrepository.com/artifact/junit/junit -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-tomcat</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-undertow</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jetty</artifactId>
+            <!--   jetty 8 需要下列项
+
+            <properties>
+                <jetty.version>8.1.15.v20140411</jetty.version>
+                <jetty-jsp.version>2.2.0.v201112011158</jetty-jsp.version>
+            </properties>
+
+
+            <exclusions>
+                <exclusion>
+                    <groupId>org.eclipse.jetty.websocket</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
+            -->
+        </dependency>
+
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.12</version>
             <scope>test</scope>
         </dependency>
-
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -67,6 +89,5 @@
 
         </plugins>
     </build>
-
 
 </project>
