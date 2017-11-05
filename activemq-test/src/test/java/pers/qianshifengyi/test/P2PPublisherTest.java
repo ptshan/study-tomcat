@@ -29,6 +29,18 @@ public class P2PPublisherTest {
     }
 
     @Test
+    public void init2()throws Exception {
+
+        ActiveMQConnectionFactory factory2 = new ActiveMQConnectionFactory();
+        Connection conn = factory2.createConnection();
+        conn.start();
+        Session sess = conn.createSession(false,Session.AUTO_ACKNOWLEDGE);
+        Destination des = sess.createQueue("ZS.TestQueue");
+      //  MessageProducer pro = session.createProducer();
+
+    }
+
+    @Test
     public void testConnQueue() throws Exception{
         Destination destination = session.createQueue("ZS.TestQueue");
         MessageProducer producer = session.createProducer(null);

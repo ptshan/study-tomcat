@@ -2,6 +2,7 @@ package pers.qianshifengyi.spring.aop.annotation.test;
 
 import org.aspectj.lang.annotation.Aspect;
 import org.junit.Test;
+import org.springframework.beans.factory.BeanFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
@@ -24,6 +25,7 @@ public class AopAnnotationTest {
         System.out.println("userService:"+userService);
         List<User> userList = userService.selectAll();
         userList.forEach(System.out::println);
+        BeanFactory
     }
 
 

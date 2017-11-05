@@ -20,7 +20,7 @@ public class NotInit {
 
     /**
      * 使用 -XX:+TraceClassLoading 参数
-     * $ java -XX:+TraceClassLoading pers.qianshifengyi.exercise7.lession1.NotInit
+     * $ java -XX:+TraceClassLoading pers.qianshifengyi.exercise7.lesson1.NotInit
      [Opened C:\Program Files\Java\jdk1.8.0_73\jre\lib\rt.jar]
      [Loaded java.lang.Object from C:\Program Files\Java\jdk1.8.0_73\jre\lib\rt.jar]
      [Loaded java.io.Serializable from C:\Program Files\Java\jdk1.8.0_73\jre\lib\rt.jar]
@@ -435,12 +435,12 @@ public class NotInit {
      [Loaded java.security.AllPermission from C:\Program Files\Java\jdk1.8.0_73\jre\lib\rt.jar]
      [Loaded java.security.UnresolvedPermission from C:\Program Files\Java\jdk1.8.0_73\jre\lib\rt.jar]
      [Loaded java.security.BasicPermissionCollection from C:\Program Files\Java\jdk1.8.0_73\jre\lib\rt.jar]
-     [Loaded pers.qianshifengyi.exercise7.lession1.NotInit from file:/C:/git_projects/study-tomcat/study-exercise/target/classes/]
+     [Loaded pers.qianshifengyi.exercise7.lesson1.NotInit from file:/C:/git_projects/study-tomcat/study-exercise/target/classes/]
      [Loaded sun.launcher.LauncherHelper$FXHelper from C:\Program Files\Java\jdk1.8.0_73\jre\lib\rt.jar]
      [Loaded java.lang.Class$MethodArray from C:\Program Files\Java\jdk1.8.0_73\jre\lib\rt.jar]
      [Loaded java.lang.Void from C:\Program Files\Java\jdk1.8.0_73\jre\lib\rt.jar]
-     [Loaded pers.qianshifengyi.exercise7.lession1.SuperClass from file:/C:/git_projects/study-tomcat/study-exercise/target/classes/]
-     [Loaded pers.qianshifengyi.exercise7.lession1.SubClass from file:/C:/git_projects/study-tomcat/study-exercise/target/classes/]
+     [Loaded pers.qianshifengyi.exercise7.lesson1.SuperClass from file:/C:/git_projects/study-tomcat/study-exercise/target/classes/]
+     [Loaded pers.qianshifengyi.exercise7.lesson1.SubClass from file:/C:/git_projects/study-tomcat/study-exercise/target/classes/]
      SuperClass init
      123
      [Loaded java.lang.Shutdown from C:\Program Files\Java\jdk1.8.0_73\jre\lib\rt.jar]

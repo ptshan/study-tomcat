@@ -61,6 +61,9 @@ public class SampleController {
     @Autowired
     private MyFilter myFilter;
 
+    @Value("${zs.isHandsome}")
+    private boolean isHandsome;
+
 //    @Autowired
 //    private MyListener myListener;
 
@@ -75,7 +78,7 @@ public class SampleController {
         System.out.println("httpSession:"+httpSession);
         System.out.println("httpSession.getAttribute(\"count\"):"+httpSession.getAttribute("count"));
         System.out.println("req.getSession().getAttribute(\"count\"):"+req.getSession().getAttribute("count"));
-
+        System.out.println("isHandsome:"+isHandsome);
         return "Hello World!";
     }
 
